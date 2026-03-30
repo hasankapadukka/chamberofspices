@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import helmet from 'helmet';
 import healthRoutes from './routes/health.route.js';
 import apiRoutes from './routes/api.route.js';
 import { rateLimit, sanitizeBody } from './middleware/security.js';
@@ -25,15 +24,16 @@ const PORT = process.env.PORT || 5000;
 // Security Middleware
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
 app.use(express.json({ limit: '1mb' }));
 
-// Rate limiting on API routes
-app.use('/api', rateLimit({ windowMs: 60000, max: 30 }));
+// Rate limiting on API routes (60 req/min for general, stricter for auth)
+app.use('/api', rateLimit({ windowMs: 60000, max: 60 }));
+app.use('/api/auth', rateLimit({ windowMs: 60000, max: 10 }));
 
-// Sanitize all POST request bodies
+// Sanitize all request bodies
 app.use(sanitizeBody);
 
 // Routes
@@ -51,5 +51,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`📋 API docs: http://localhost:${PORT}/api/health`);
 });

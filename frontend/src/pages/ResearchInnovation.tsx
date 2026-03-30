@@ -15,7 +15,7 @@ export const ResearchInnovation = () => {
         titleLine1="Research &"
         titleLine2="Innovation"
         subtitle="Driving Value Addition and Future-Ready Production."
-        bgImage="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop"
+        bgImage="/images/pepper_vines.png"
       />
       <section className="py-24 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">
         <div className="text-center mb-16">

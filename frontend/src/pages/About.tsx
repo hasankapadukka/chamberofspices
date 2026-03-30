@@ -16,7 +16,7 @@ export const About = () => {
                 titleLine1="About The"
                 titleLine2="Ceylon Chamber of Spices"
                 subtitle="The centralized institutional body unifying Sri Lanka's spice sector through collaboration and strategic foresight."
-                bgImage="https://images.unsplash.com/photo-1532336414038-cf19250c5757?q=80&w=2070&auto=format&fit=crop"
+                bgImage="/images/spice_assortment.png"
             />
 
             {/* Our Story & Vision */}
@@ -29,14 +29,14 @@ export const About = () => {
                         number: "01",
                         heading: "Our Story",
                         description: "Sri Lanka's spice heritage dates back centuries, with global recognition for authenticity, purity, and quality. However, fragmented value chains and global market challenges demand structured coordination.\n\nThe Ceylon Chamber of Spices was established to unify and strengthen the industry through collaboration, policy advocacy, and sustainability leadership.",
-                        image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?q=80&w=2080&auto=format&fit=crop"
+                        image: "/images/cinnamon_plantation.png"
                     },
                     {
                         label: "FUTURE",
                         number: "02",
                         heading: "Our Vision",
                         description: "To position Sri Lanka as the world's most trusted sustainable and regenerative spice origin.\n\nOur Mission:\nTo unite stakeholders across the spice value chain, enhance global market access, strengthen institutional coordination, and promote innovation and regenerative agriculture.",
-                        image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=2070&auto=format&fit=crop"
+                        image: "/images/pepper_vines.png"
                     }
                 ]}
             />

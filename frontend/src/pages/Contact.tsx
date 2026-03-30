@@ -52,7 +52,7 @@ export const Contact = () => {
                 titleLine1="Get In"
                 titleLine2="Touch"
                 subtitle="Reach out to the Chamber for membership inquiries, partnership opportunities, or policy consultations."
-                bgImage="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?q=80&w=2074&auto=format&fit=crop"
+                bgImage="/images/spice_assortment.png"
             />
 
             <section className="py-24 max-w-7xl mx-auto px-4 md:px-8 lg:px-12">

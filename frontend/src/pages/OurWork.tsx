@@ -13,7 +13,7 @@ export const OurWork = () => {
                 titleLine2="in the"
                 titleHighlight="Spice Value Chain"
                 subtitle="We action our vision through five core pillars, designed to support farmers, protect standards, and expand global market reach."
-                bgImage="https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?q=80&w=2096&auto=format&fit=crop"
+                bgImage="/images/clove_drying.png"
             />
 
             <section className="py-24 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">
@@ -26,27 +26,27 @@ export const OurWork = () => {
                     <ServiceCard
                         icon={ShieldCheck}
                         title="1. Policy Advocacy"
-                        description="Representing industry interests in structured dialogues with ministries, regulatory authorities, and international trade organizations to ensure a progressive operating environment."
+                        description="Representing industry interests in structured dialogue with ministries and regulatory authorities."
                     />
                     <ServiceCard
                         icon={TrendingUp}
                         title="2. Market Development"
-                        description="Connecting exporters with global buyers, organizing international trade missions, and providing actionable export intelligence to expand Ceylon Spices globally."
+                        description="Connecting exporters with global buyers and trade fairs."
                     />
                     <ServiceCard
                         icon={BookOpen}
                         title="3. Standards & Certification"
-                        description="Providing hands-on guidance for organic certification, sustainability compliance, food safety frameworks, and robust origin traceability systems."
+                        description="Guidance on organic certification, sustainability compliance, and traceability systems."
                     />
                     <ServiceCard
                         icon={Heart}
                         title="4. Farmer Empowerment"
-                        description="Executing dedicated capacity building, income improvement strategies, and technical training to ensure the economic health of the growers."
+                        description="Capacity building, income improvement strategies, and technical training."
                     />
                     <ServiceCard
                         icon={Leaf}
                         title="5. Sustainability Programs"
-                        description="Leading the transition to climate-smart farming, biodiversity conservation, and regenerative agricultural practices at the plantation level."
+                        description="Climate-smart farming and regenerative practices."
                     />
                 </div>
             </section>

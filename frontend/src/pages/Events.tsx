@@ -1,133 +1,138 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Hero } from '../components/ui/Hero';
 import { SEO } from '../components/ui/SEO';
 import { useToast } from '../components/ui/Toast';
 import { api } from '../services/api';
-import { Calendar, MapPin, Clock, X, Loader2, Send } from 'lucide-react';
+import { Calendar, MapPin, Tag, X, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface EventItem {
+  id: number;
   title: string;
-  date: string;
+  description: string;
+  event_date: string;
+  event_time: string;
   location: string;
-  type: string;
+  event_type: string;
+  image_url: string;
+  registration_open: number;
 }
 
-const EventRegistrationModal: React.FC<{ event: EventItem; onClose: () => void }> = ({ event, onClose }) => {
+const RegistrationModal = ({ event, onClose }: { event: EventItem; onClose: () => void }) => {
   const { showToast } = useToast();
+  const [form, setForm] = useState({ event_title: event.title, event_id: event.id, full_name: '', email: '', phone: '', organization: '' });
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ full_name: '', email: '', phone: '', organization: '' });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const validate = () => {
-    const e: Record<string, string> = {};
-    if (!form.full_name.trim()) e.full_name = 'Required';
-    if (!form.email.trim()) e.email = 'Required';
-    else if (!/\S+@\S+\.\S+/.test(form.email)) e.email = 'Invalid email';
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!form.full_name || !form.email) {
+      showToast('error', 'Name and email are required.');
+      return;
+    }
     setLoading(true);
     try {
-      const res = await api.registerEvent({ ...form, event_title: event.title });
-      if (res.success) {
-        showToast('success', res.message);
-        onClose();
-      } else {
-        showToast('error', res.message);
-      }
+      const res = await api.registerEvent(form);
+      showToast(res.success ? 'success' : 'error', res.message);
+      if (res.success) onClose();
     } catch {
       showToast('error', 'Network error. Please try again.');
     }
     setLoading(false);
   };
 
-  const inputClass = (field: string) =>
-    `w-full px-4 py-3 rounded-xl border ${errors[field] ? 'border-red-400' : 'border-gray-200'} focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors`;
-
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 z-10">
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><X className="w-5 h-5" /></button>
-        <h3 className="text-2xl font-medium mb-2">Register Interest</h3>
-        <p className="text-gray-500 text-sm mb-6">{event.title} — {event.date}</p>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4" onClick={onClose}>
+      <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} onClick={e => e.stopPropagation()} className="bg-white rounded-3xl w-full max-w-lg p-8 shadow-2xl relative">
+        <button onClick={onClose} className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"><X className="w-5 h-5" /></button>
+        <h3 className="text-2xl font-medium mb-2">Register for Event</h3>
+        <p className="text-green-700 font-medium text-sm mb-6">{event.title}</p>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1">
-            <label className="text-sm font-medium text-gray-700">Full Name *</label>
-            <input type="text" value={form.full_name} onChange={e => setForm({ ...form, full_name: e.target.value })} className={inputClass('full_name')} placeholder="Your name" />
-            {errors.full_name && <p className="text-red-500 text-xs">{errors.full_name}</p>}
-          </div>
-          <div className="space-y-1">
-            <label className="text-sm font-medium text-gray-700">Email *</label>
-            <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} className={inputClass('email')} placeholder="john@example.com" />
-            {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-700">Phone</label>
-              <input type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className={inputClass('phone')} placeholder="+94 ..." />
-            </div>
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-700">Organization</label>
-              <input type="text" value={form.organization} onChange={e => setForm({ ...form, organization: e.target.value })} className={inputClass('organization')} placeholder="Company" />
-            </div>
-          </div>
-          <button type="submit" disabled={loading} className="w-full bg-green-700 text-white font-medium py-3 rounded-xl hover:bg-green-800 transition-colors flex items-center justify-center gap-2 disabled:opacity-60">
-            {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Registering...</> : <><Send className="w-4 h-4" /> Confirm Registration</>}
+          <input type="text" placeholder="Full Name *" value={form.full_name} onChange={e => setForm({ ...form, full_name: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500" />
+          <input type="email" placeholder="Email Address *" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500" />
+          <input type="tel" placeholder="Phone (optional)" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500" />
+          <input type="text" placeholder="Organization (optional)" value={form.organization} onChange={e => setForm({ ...form, organization: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500" />
+          <button type="submit" disabled={loading} className="w-full bg-green-700 text-white py-3 rounded-xl font-semibold hover:bg-green-800 transition-colors disabled:opacity-60 flex items-center justify-center gap-2">
+            {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Submitting...</> : 'Register Interest'}
           </button>
         </form>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
 export const Events = () => {
+  const [events, setEvents] = useState<EventItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
+  const [activeType, setActiveType] = useState('All');
 
-  const events: EventItem[] = [
-    { title: "Annual Spice Forum 2026", date: "October 15-16, 2026", location: "BMICH, Colombo", type: "Conference" },
-    { title: "European Buyer Trade Roundtable", date: "August 22, 2026", location: "Virtual", type: "Trade Roundtable" },
-    { title: "Matale Region Farmer Workshop", date: "July 10, 2026", location: "Matale City Hall", type: "Farmer Workshop" },
-    { title: "Incoming Japanese Trade Delegation", date: "June 05, 2026", location: "Chamber HQ, Colombo", type: "International Delegation" }
-  ];
+  const eventTypes = ['All', 'Annual Spice Forum', 'Trade Roundtables', 'Farmer Workshops', 'International Delegations'];
+
+  useEffect(() => {
+    api.getEvents().then(res => {
+      if (res.success && res.data) setEvents(res.data);
+    }).catch(() => { }).finally(() => setLoading(false));
+  }, []);
 
   return (
     <>
-      <SEO title="Events | The Ceylon Chamber of Spices" description="Join our upcoming Annual Spice Forum, trade roundtables, farmer workshops, and international delegations." />
+      <SEO title="Events | The Ceylon Chamber of Spices" description="Join conferences, workshops, and trade roundtables shaping the future of Sri Lanka's spice industry." />
       <Hero
         titleLine1="Industry"
         titleLine2="Events"
         subtitle="Connect, learn, and grow at our conferences, workshops, and international trade roundtables."
-        bgImage="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2012&auto=format&fit=crop"
+        bgImage="/images/clove_drying.png"
       />
       <section className="py-24 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">
-        <div className="space-y-6">
-          {events.map((event, idx) => (
-            <div key={idx} className="bg-white rounded-3xl border border-gray-100 p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-xl hover:border-green-100 transition-all">
-              <div>
-                <span className="inline-block px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full mb-4">{event.type}</span>
-                <h3 className="text-2xl font-medium mb-3">{event.title}</h3>
-                <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm">
-                  <div className="flex items-center gap-2"><Calendar className="w-4 h-4" /> {event.date}</div>
-                  <div className="flex items-center gap-2"><MapPin className="w-4 h-4" /> {event.location}</div>
-                  <div className="flex items-center gap-2"><Clock className="w-4 h-4" /> 09:00 AM - 05:00 PM</div>
-                </div>
-              </div>
-              <button onClick={() => setSelectedEvent(event)} className="bg-green-700 text-white px-8 py-3 rounded-full font-medium hover:bg-green-800 transition-colors whitespace-nowrap">
-                Register Interest
-              </button>
-            </div>
+        <div className="flex flex-wrap gap-4 mb-12">
+          {eventTypes.map(type => (
+            <button
+              key={type}
+              onClick={() => setActiveType(type)}
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${activeType === type ? 'bg-green-700 text-white shadow-lg' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+            >
+              {type}
+            </button>
           ))}
         </div>
-      </section>
 
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <div className="w-8 h-8 border-4 border-green-200 border-t-green-600 rounded-full animate-spin" />
+          </div>
+        ) : events.length === 0 ? (
+          <div className="text-center py-20 text-gray-400">
+            <p className="text-2xl font-medium mb-2">No upcoming events</p>
+            <p>Check back soon for new events and conferences.</p>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {events.filter(event => activeType === 'All' || event.event_type === activeType).map((event) => (
+              <div key={event.id} className="bg-white rounded-3xl border border-gray-100 p-8 hover:shadow-lg transition-all flex flex-col md:flex-row justify-between gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full uppercase tracking-wider">{event.event_type}</span>
+                    {!event.registration_open && <span className="px-3 py-1 bg-gray-100 text-gray-500 text-xs font-bold rounded-full">Closed</span>}
+                  </div>
+                  <h3 className="text-2xl font-medium text-gray-900 mb-3">{event.title}</h3>
+                  {event.description && <p className="text-gray-500 text-sm leading-relaxed mb-4">{event.description}</p>}
+                  <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500">
+                    <div className="flex items-center gap-2"><Calendar className="w-4 h-4 text-green-600" />{new Date(event.event_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}{event.event_time && ` · ${event.event_time}`}</div>
+                    {event.location && <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-green-600" />{event.location}</div>}
+                  </div>
+                </div>
+                {event.registration_open ? (
+                  <button onClick={() => setSelectedEvent(event)} className="shrink-0 bg-green-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-800 transition-colors self-start">
+                    Register Interest
+                  </button>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
       <AnimatePresence>
-        {selectedEvent && <EventRegistrationModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />}
+        {selectedEvent && <RegistrationModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />}
       </AnimatePresence>
     </>
   );

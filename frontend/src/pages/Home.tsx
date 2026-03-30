@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Hero } from '../components/ui/Hero';
 import { ServiceCard, FeatureSection } from '../components/ui/SharedElements';
 import { SEO } from '../components/ui/SEO';
-import { TrendingUp, Award, BookOpen, Leaf, Heart, Globe, ChevronLeft, ChevronRight, ArrowRight, CheckCircle2, Quote } from 'lucide-react';
+import { api } from '../services/api';
+import { TrendingUp, Award, BookOpen, Leaf, Heart, Globe, ChevronLeft, ChevronRight, ArrowRight, CheckCircle2, Quote, Calendar } from 'lucide-react';
 
 /* ─── Commodity Slider Card ─── */
 const CommodityCard = ({ image, title, badge, category }: any) => (
@@ -32,10 +33,10 @@ const ListingSection = () => {
     };
 
     const commodities = [
-        { title: "Ceylon Cinnamon", badge: "Origin Certified", category: "Export", image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?q=80&w=2080&auto=format&fit=crop" },
-        { title: "Ceylon Black Pepper", badge: "Premium Quality", category: "Export", image: "https://images.unsplash.com/photo-1599909533601-aa539e3e4163?q=80&w=2070&auto=format&fit=crop" },
-        { title: "Cloves & Nutmeg", badge: "Organically Grown", category: "Standards", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop" },
-        { title: "Cardamom & Mace", badge: "Innovation", category: "Research", image: "https://images.unsplash.com/photo-1532336414038-cf19250c5757?q=80&w=2070&auto=format&fit=crop" }
+        { title: "Ceylon Cinnamon", badge: "Origin Certified", category: "Export", image: "/images/cinnamon_plantation.png" },
+        { title: "Ceylon Black Pepper", badge: "Premium Quality", category: "Export", image: "/images/pepper_vines.png" },
+        { title: "Cloves & Nutmeg", badge: "Organically Grown", category: "Standards", image: "/images/clove_drying.png" },
+        { title: "Cardamom & Mace", badge: "Innovation", category: "Research", image: "/images/spice_assortment.png" }
     ];
 
     return (
@@ -62,6 +63,16 @@ const ListingSection = () => {
 
 /* ─── HOME PAGE ─── */
 export const Home = () => {
+    const [latestNews, setLatestNews] = useState<any[]>([]);
+
+    useEffect(() => {
+        api.getNews().then(res => {
+            if (res.success && res.data) {
+                setLatestNews(res.data.slice(0, 3));
+            }
+        }).catch(() => { });
+    }, []);
+
     return (
         <>
             <SEO
@@ -76,7 +87,7 @@ export const Home = () => {
                 titleLine2=""
                 titleHighlight="Spice Future"
                 subtitle="Uniting farmers, exporters, industry leaders, and policymakers to position Sri Lanka as the world's most trusted sustainable spice origin."
-                bgImage="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop"
+                bgImage="/images/spice_assortment.png"
                 showSearch={true}
             />
 
@@ -97,7 +108,7 @@ export const Home = () => {
                         </Link>
                     </div>
                     <div className="relative rounded-3xl overflow-hidden aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?q=80&w=2096&auto=format&fit=crop" alt="Ceylon Spices" className="w-full h-full object-cover" />
+                        <img src="/images/cinnamon_plantation.png" alt="Ceylon Spices" className="w-full h-full object-cover" />
                     </div>
                 </div>
             </section>
@@ -146,6 +157,38 @@ export const Home = () => {
 
             {/* ── COMMODITY SLIDER ── */}
             <ListingSection />
+
+            {/* ── LATEST NEWS ── */}
+            {latestNews.length > 0 && (
+                <section className="py-24 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">
+                    <div className="flex justify-between items-end mb-12">
+                        <div>
+                            <p className="text-green-700 font-medium mb-2">Stay Updated</p>
+                            <h2 className="text-4xl font-medium tracking-tight">Latest News & Insights</h2>
+                        </div>
+                        <Link to="/news" className="text-green-700 font-semibold hover:underline hidden md:block">
+                            View all news
+                        </Link>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {latestNews.map((news) => (
+                            <Link key={news.id} to="/news" className="group">
+                                <div className="relative aspect-video rounded-2xl overflow-hidden mb-4">
+                                    <img src={news.image_url} alt={news.title} className="w-full h-full object-cover transition-transform group-hover:scale-105" />
+                                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-green-800">
+                                        {news.category}
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2 text-gray-400 text-xs mb-2">
+                                    <Calendar className="w-3 h-3" />
+                                    {new Date(news.published_at).toLocaleDateString()}
+                                </div>
+                                <h3 className="text-xl font-medium group-hover:text-green-700 transition-colors line-clamp-2">{news.title}</h3>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+            )}
 
             {/* ── LEADERSHIP MESSAGE ── */}
             <section className="py-24 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">

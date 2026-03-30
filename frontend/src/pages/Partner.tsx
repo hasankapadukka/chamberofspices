@@ -17,7 +17,7 @@ export const Partner = () => {
                 titleLine2="Sector"
                 titleHighlight="Transformation"
                 subtitle="We partner with visionary organizations and global agencies to drive systemic change across Sri Lanka's spice ecosystem."
-                bgImage="https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=2070&auto=format&fit=crop"
+                bgImage="/images/cinnamon_plantation.png"
             />
             <section className="py-24 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">
                 <div className="text-center mb-16">

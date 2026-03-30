@@ -18,10 +18,10 @@ export const Membership = () => {
     const [errors, setErrors] = useState<Record<string, string>>({});
 
     const membershipCategories = [
-        { q: "Farmer Members", icon: Users, a: "Designed for individual growers and farmer organizations. Gain access to capacity building, income improvement strategies, and technical training directly from origin experts." },
-        { q: "SME & Processor Members", icon: Factory, a: "For small and medium processing companies. Benefits include guidance on organic certification, sustainability compliance, food safety audits, and traceability systems." },
-        { q: "Exporter Members", icon: Plane, a: "Support for licensed exporters and large-scale traders. Participate in trade missions, international buyer engagement, global policy advocacy, and origin branding initiatives." },
-        { q: "Institutional & Associate Members", icon: Building2, a: "For financial institutions, research bodies, and development agencies seeking to collaborate on sector-wide research, value addition, and agricultural development." }
+        { q: "Farmer Members", icon: Users, a: "Individual growers and farmer organizations." },
+        { q: "SME & Processor Members", icon: Factory, a: "Small and medium processing companies." },
+        { q: "Exporter Members", icon: Plane, a: "Licensed exporters and large-scale traders." },
+        { q: "Institutional & Associate Members", icon: Building2, a: "Financial institutions, research bodies, development agencies." }
     ];
 
     const validate = () => {
@@ -65,7 +65,7 @@ export const Membership = () => {
                 titleLine2="Chamber"
                 titleHighlight="Member"
                 subtitle="Join the movement to shape the future of Ceylon Spices. Connect with industry leaders, access critical data, and drive policy advocacy."
-                bgImage="https://images.unsplash.com/photo-1587132137056-bfbf0166836e?q=80&w=2080&auto=format&fit=crop"
+                bgImage="/images/spice_assortment.png"
             />
 
             <section className="py-24 max-w-7xl mx-auto px-4 md:px-8 lg:px-12 bg-white">
@@ -73,7 +73,7 @@ export const Membership = () => {
                     {/* Left Side — Form or CTA Image */}
                     {!showForm ? (
                         <div className="relative rounded-3xl overflow-hidden aspect-square lg:aspect-auto lg:h-full min-h-[500px]">
-                            <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop" alt="Spice Market" className="absolute inset-0 w-full h-full object-cover brightness-90" />
+                            <img src="/images/cinnamon_plantation.png" alt="Spice Market" className="absolute inset-0 w-full h-full object-cover brightness-90" />
                             <div className="absolute inset-0 bg-gradient-to-tr from-green-900/40 to-transparent" />
                             <div className="absolute bottom-8 left-8 right-8 bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl text-white">
                                 <h3 className="text-xl font-bold mb-2">Ready to Apply?</h3>
@@ -163,12 +163,12 @@ export const Membership = () => {
                     <h2 className="text-4xl font-medium tracking-tight">Membership Benefits</h2>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <ServiceCard icon={CheckCircle2} title="Policy Advocacy" description="Direct representation in structural dialogues and legislation affecting the spice industry." />
-                    <ServiceCard icon={CheckCircle2} title="Market Intelligence" description="Exclusive access to international trade data, export figures, and origin demand analytics." />
-                    <ServiceCard icon={CheckCircle2} title="Trade Networking" description="Engage in B2B matchmaking, trade missions, and international buyer roundtables." />
-                    <ServiceCard icon={CheckCircle2} title="Certification Support" description="Receive technical guidance on maintaining global compliance, organic standards, and food safety." />
-                    <ServiceCard icon={CheckCircle2} title="Capacity Building" description="Specialized training on sustainable agronomy, post-harvest practices, and value addition." />
-                    <ServiceCard icon={CheckCircle2} title="Voting Rights" description="Eligible membership categories participate directly in Chamber leadership and governance." />
+                    <ServiceCard icon={CheckCircle2} title="Voting Rights" description="Voting rights (where applicable) for leadership and governance." />
+                    <ServiceCard icon={CheckCircle2} title="Industry Data" description="Access to exclusive industry data, reports, and market intelligence." />
+                    <ServiceCard icon={CheckCircle2} title="Committees" description="Participation in specialized thematic committees." />
+                    <ServiceCard icon={CheckCircle2} title="Events" description="Invitations to trade forums, workshops, and international delegations." />
+                    <ServiceCard icon={CheckCircle2} title="Branding" description="Branding and visibility opportunities within the Chamber ecosystem." />
+                    <ServiceCard icon={CheckCircle2} title="Capacity Building" description="Access to technical training and certification support." />
                 </div>
             </section>
         </>

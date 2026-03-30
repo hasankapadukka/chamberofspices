@@ -15,7 +15,7 @@ export const MarketTrade = () => {
         titleLine1="Market &"
         titleLine2="Trade"
         subtitle="Expanding Global Market Access for Premium Ceylon Spices."
-        bgImage="https://images.unsplash.com/photo-1588164391216-20d2001e05a2?q=80&w=2070&auto=format&fit=crop"
+        bgImage="/images/clove_drying.png"
       />
       <section className="py-24 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">
         <div className="text-center mb-16">

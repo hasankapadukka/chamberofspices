@@ -15,7 +15,7 @@ export const IndustryStandards = () => {
         titleLine1="Industry &"
         titleLine2="Standards"
         subtitle="Raising the Benchmark for Ceylon Spice Quality."
-        bgImage="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop"
+        bgImage="/images/spice_assortment.png"
       />
       <section className="py-24 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">
         <div className="text-center mb-16">

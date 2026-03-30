@@ -81,7 +81,7 @@ export const Navbar = () => {
             name: 'The Chamber',
             links: [
                 { name: 'About Us', path: '/about' },
-                { name: 'Leadership', path: '/leadership' },
+                { name: 'Leadership & Governance', path: '/leadership' },
                 { name: 'Our Work', path: '/our-work' }
             ]
         },
@@ -105,7 +105,7 @@ export const Navbar = () => {
     ];
 
     const singleLinks: NavLink[] = [
-        { name: 'Contact', path: '/contact' },
+        { name: 'Contact Us', path: '/contact' },
         { name: 'Partner With Us', path: '/partner' }
     ];
 
