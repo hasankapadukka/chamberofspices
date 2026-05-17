@@ -135,8 +135,11 @@ export const Navbar = () => {
                     ))}
                 </div>
 
-                {/* CTA Button */}
-                <div className="hidden lg:block shrink-0">
+                {/* CTA Buttons */}
+                <div className="hidden lg:flex items-center gap-4 shrink-0">
+                    <Link to="/member-login" className="text-white/70 hover:text-white text-sm font-bold transition-colors">
+                        Member Login
+                    </Link>
                     <Link to="/membership" className="bg-green-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition-colors inline-block">
                         Become a Member
                     </Link>
@@ -204,9 +207,14 @@ export const Navbar = () => {
                                     </Link>
                                 ))}
                             </div>
-                            <Link to="/membership" onClick={() => setIsOpen(false)} className="bg-green-600 text-center text-white w-full py-4 rounded-xl font-bold mt-4 shrink-0">
-                                Become a Member
-                            </Link>
+                            <div className="flex flex-col gap-2 mt-4 shrink-0">
+                                <Link to="/member-login" onClick={() => setIsOpen(false)} className="border border-white/20 text-center text-white w-full py-4 rounded-xl font-bold">
+                                    Member Login
+                                </Link>
+                                <Link to="/membership" onClick={() => setIsOpen(false)} className="bg-green-600 text-center text-white w-full py-4 rounded-xl font-bold">
+                                    Become a Member
+                                </Link>
+                            </div>
                         </div>
                     </motion.div>
                 )}

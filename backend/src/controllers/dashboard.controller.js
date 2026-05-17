@@ -1,4 +1,5 @@
 import db from '../db.js';
+import bcrypt from 'bcryptjs';
 
 export const getDashboard = (req, res) => {
     try {
@@ -62,10 +63,25 @@ export const updateMembershipStatus = (req, res) => {
     if (!status) return res.status(400).json({ success: false, message: 'Status is required.' });
 
     try {
-        const result = db.prepare('UPDATE membership_applications SET status = ? WHERE id = ?').run(status, id);
-        if (result.changes === 0) return res.status(404).json({ success: false, message: 'Application not found.' });
-        res.json({ success: true, message: 'Application status updated.' });
+        if (status === 'approved') {
+            const existing = db.prepare('SELECT * FROM membership_applications WHERE id = ?').get(id);
+            if (!existing) return res.status(404).json({ success: false, message: 'Application not found.' });
+            
+            // Only generate if not already set
+            if (!existing.member_id) {
+                const memberId = `CCS-2026-${String(id).padStart(3, '0')}`;
+                const hashedPassword = bcrypt.hashSync('member123', 10);
+                db.prepare('UPDATE membership_applications SET status = ?, member_id = ?, password = ? WHERE id = ?')
+                  .run(status, memberId, hashedPassword, id);
+            } else {
+                db.prepare('UPDATE membership_applications SET status = ? WHERE id = ?').run(status, id);
+            }
+        } else {
+            db.prepare('UPDATE membership_applications SET status = ? WHERE id = ?').run(status, id);
+        }
+        res.json({ success: true, message: `Application ${status}.` });
     } catch (err) {
+        console.error('Update membership error:', err);
         res.status(500).json({ success: false, message: 'Failed to update status.' });
     }
 };

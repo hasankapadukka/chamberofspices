@@ -1,12 +1,22 @@
 import db from '../db.js';
 
-// ── Public: Get all resources ──
+// ── Public: Get only public resources ──
 export const getPublicResources = (req, res) => {
     try {
-        const resources = db.prepare('SELECT id, title, type, size, is_public FROM resources ORDER BY created_at DESC').all();
+        const resources = db.prepare('SELECT id, title, type, size, is_public FROM resources WHERE is_public = 1 ORDER BY created_at DESC').all();
         res.json({ success: true, data: resources });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Failed to fetch resources.' });
+    }
+};
+
+// ── Member: Get all resources (including private) ──
+export const getMemberResources = (req, res) => {
+    try {
+        const resources = db.prepare('SELECT id, title, type, size FROM resources ORDER BY created_at DESC').all();
+        res.json({ success: true, data: resources });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Failed to fetch member resources.' });
     }
 };
 

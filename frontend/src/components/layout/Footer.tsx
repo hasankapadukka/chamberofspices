@@ -39,7 +39,7 @@ const NewsletterForm = () => {
 export const FooterCTA = () => (
     <div className="relative h-[500px] w-full overflow-hidden">
         <img
-            src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop"
+            src="/images/spice_assortment.png"
             alt="Footer Farm"
             className="absolute inset-0 w-full h-full object-cover brightness-50"
         />
@@ -74,6 +74,9 @@ export const Footer = () => (
                         <Link to="/events" className="hover:text-green-700 transition-colors">Events</Link>
                         <Link to="/news-insights" className="hover:text-green-700 transition-colors">News & Insights</Link>
                         <Link to="/contact" className="hover:text-green-700 transition-colors">Contact Us</Link>
+                        <hr className="my-2 border-gray-100" />
+                        <Link to="/member-login" className="text-green-700 font-bold hover:underline">Member Portal</Link>
+                        <Link to="/admin/login" className="text-gray-400 hover:text-gray-600 text-xs">Admin Access</Link>
                     </div>
                 </div>
 
