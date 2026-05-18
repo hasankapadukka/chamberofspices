@@ -4,7 +4,7 @@ import { Hero } from '../components/ui/Hero';
 import { ServiceCard, FeatureSection } from '../components/ui/SharedElements';
 import { SEO } from '../components/ui/SEO';
 import { api } from '../services/api';
-import { TrendingUp, Award, BookOpen, Leaf, Heart, Globe, ChevronLeft, ChevronRight, ArrowRight, CheckCircle2, Quote, Calendar } from 'lucide-react';
+import { TrendingUp, Award, BookOpen, Leaf, Heart, Globe, ChevronLeft, ChevronRight, ArrowRight, CheckCircle2, Calendar } from 'lucide-react';
 
 /* ─── Commodity Slider Card ─── */
 const CommodityCard = ({ image, title, badge, category }: any) => (
@@ -189,26 +189,6 @@ export const Home = () => {
                     </div>
                 </section>
             )}
-
-            {/* ── LEADERSHIP MESSAGE ── */}
-            <section className="py-24 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
-                    <div className="relative rounded-3xl overflow-hidden aspect-square max-h-[500px]">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" alt="Chairman" className="w-full h-full object-cover" />
-                    </div>
-                    <div>
-                        <Quote className="w-10 h-10 text-green-200 mb-4" />
-                        <h2 className="text-3xl font-medium mb-6">Message from the Chairman</h2>
-                        <p className="text-gray-600 leading-relaxed mb-4 italic text-lg">
-                            "Sri Lanka's spice heritage is a gift from centuries of cultivation, craftsmanship, and care. Today, the Ceylon Chamber of Spices stands as the collective voice of an industry poised for transformation. Together, we will build a future where our spices are synonymous with quality, sustainability, and trust on the global stage."
-                        </p>
-                        <div className="mt-8">
-                            <p className="font-bold text-lg">Mr. Anushka Vidanapathirana</p>
-                            <p className="text-green-700 text-sm uppercase tracking-widest">Chairman, The Ceylon Chamber of Spices</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             {/* ── CALL TO ACTION ── */}
             <section className="py-24 px-4 md:px-8 lg:px-12">

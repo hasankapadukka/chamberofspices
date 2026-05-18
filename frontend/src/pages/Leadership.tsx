@@ -13,21 +13,10 @@ interface Leader {
     image_url: string;
 }
 
-const LeaderCard: React.FC<{ name: string; title: string; image?: string }> = ({ name, title, image }) => (
-    <div className="bg-white p-8 rounded-3xl flex flex-col items-center gap-6 text-center hover:shadow-lg transition-shadow border border-green-100">
-        <div className="w-32 h-32 shrink-0 rounded-full overflow-hidden bg-gray-200 border-4 border-green-50">
-            {image ? (
-                <img src={image} alt={name} className="w-full h-full object-cover" />
-            ) : (
-                <div className="w-full h-full bg-green-100 flex items-center justify-center text-green-600 text-3xl font-bold">
-                    {name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                </div>
-            )}
-        </div>
-        <div>
-            <p className="font-bold text-lg mb-1">{name}</p>
-            <p className="text-sm text-green-700 uppercase tracking-widest">{title}</p>
-        </div>
+const LeaderCard: React.FC<{ name: string; title: string; image?: string }> = ({ name, title }) => (
+    <div className="bg-white p-8 rounded-3xl flex flex-col justify-center items-center text-center hover:shadow-lg transition-shadow border border-green-100 min-h-[140px]">
+        <p className="font-bold text-lg mb-2 text-gray-900">{name}</p>
+        <p className="text-sm text-green-700 uppercase tracking-widest font-semibold">{title}</p>
     </div>
 );
 
@@ -43,11 +32,11 @@ export const Leadership = () => {
 
     // Static leadership — these are the known leadership (shown first)
     const staticLeaders = [
-        { name: 'Mr. Anushka Vidanapathirana', title: 'Chairman', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop' },
-        { name: 'Mrs. Lakshmi Jayasinghe', title: 'Vice Chairperson', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop' },
-        { name: 'Mr. Hasanka Padukka', title: 'Executive Director', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop' },
-        { name: 'Mr. Ravees Dananjaya', title: 'Secretary General', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop' },
-        { name: 'Mrs. L.T. Chandrakanthi', title: 'Treasurer', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop' },
+        { name: 'Mr. Anushka Vidanapathirana', title: 'Chairman' },
+        { name: 'Mrs. Lakshmi Jayasinghe', title: 'Vice Chairperson' },
+        { name: 'Mr. Hasanka Padukka', title: 'Executive Director' },
+        { name: 'Mr. Ravees Dananjaya', title: 'Secretary General' },
+        { name: 'Mrs. L.T. Chandrakanthi', title: 'Treasurer' },
     ];
 
     const governanceStructure = [
@@ -77,50 +66,39 @@ export const Leadership = () => {
                     <h2 className="text-4xl font-medium mb-16">Governing Leadership</h2>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                         {staticLeaders.map((leader, idx) => (
-                            <LeaderCard key={`static-${idx}`} name={leader.name} title={leader.title} image={leader.image} />
+                            <LeaderCard key={`static-${idx}`} name={leader.name} title={leader.title} />
                         ))}
                         {additionalLeaders.map((leader) => (
-                            <LeaderCard key={`api-${leader.id}`} name={leader.name} title={leader.title} image={leader.image_url || undefined} />
+                            <LeaderCard key={`api-${leader.id}`} name={leader.name} title={leader.title} />
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section className="py-24 max-w-7xl mx-auto px-4 md:px-8 lg:px-12 bg-white">
-                <div className="grid lg:grid-cols-2 gap-16 items-start">
-                    <div className="relative rounded-3xl overflow-hidden aspect-square lg:aspect-auto lg:h-full min-h-[400px]">
-                        <img
-                            src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop"
-                            alt="Governance"
-                            className="absolute inset-0 w-full h-full object-cover brightness-90"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-green-900/40 to-transparent" />
-                    </div>
-
-                    <div className="py-8">
-                        <h2 className="text-4xl font-medium mb-4">Governance Structure</h2>
-                        <p className="text-gray-500 mb-12">The Chamber employs a decentralized yet highly coordinated governance topology to ensure equity, transparency, and action across all sectors of the spice industry.</p>
-                        <div className="space-y-6">
-                            {governanceStructure.map((faq, idx) => (
-                                <div key={idx} className="border-b border-gray-100 pb-6">
-                                    <button
-                                        onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                                        className="w-full flex justify-between items-center text-left text-lg font-medium hover:text-green-700 transition-colors"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <faq.icon className="w-5 h-5 text-gray-400" />
-                                            {faq.q}
-                                        </div>
-                                        <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${openIndex === idx ? 'rotate-180' : ''}`} />
-                                    </button>
-                                    <div className={`grid transition-all duration-300 ease-in-out ${openIndex === idx ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0'}`}>
-                                        <div className="overflow-hidden">
-                                            <p className="text-gray-500 text-sm leading-relaxed pl-8 whitespace-pre-line">{faq.a}</p>
-                                        </div>
+            <section className="py-24 max-w-4xl mx-auto px-4 md:px-8 lg:px-12 bg-white">
+                <div className="py-8">
+                    <h2 className="text-4xl font-medium mb-4 text-center">Governance Structure</h2>
+                    <p className="text-gray-500 mb-12 text-center max-w-2xl mx-auto">The Chamber employs a decentralized yet highly coordinated governance topology to ensure equity, transparency, and action across all sectors of the spice industry.</p>
+                    <div className="space-y-6 max-w-2xl mx-auto">
+                        {governanceStructure.map((faq, idx) => (
+                            <div key={idx} className="border-b border-gray-100 pb-6">
+                                <button
+                                    onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                                    className="w-full flex justify-between items-center text-left text-lg font-medium hover:text-green-700 transition-colors"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <faq.icon className="w-5 h-5 text-green-700" />
+                                        {faq.q}
+                                    </div>
+                                    <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${openIndex === idx ? 'rotate-180' : ''}`} />
+                                </button>
+                                <div className={`grid transition-all duration-300 ease-in-out ${openIndex === idx ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0'}`}>
+                                    <div className="overflow-hidden">
+                                        <p className="text-gray-500 text-sm leading-relaxed pl-8 whitespace-pre-line">{faq.a}</p>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>

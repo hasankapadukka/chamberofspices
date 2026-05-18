@@ -113,8 +113,8 @@ export const Navbar = () => {
     const isGroupActive = (links: NavLink[]) => links.some(link => isActive(link.path));
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent py-6 px-4 md:px-8 lg:px-12 transition-all duration-300" role="navigation" aria-label="Main Navigation">
-            <div className="max-w-7xl mx-auto flex items-center justify-between bg-black/60 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 shadow-lg">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent py-6 px-4 md:px-8 xl:px-12 transition-all duration-300" role="navigation" aria-label="Main Navigation">
+            <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 xl:gap-8 bg-black/85 backdrop-blur-lg border border-white/10 rounded-full px-6 py-2.5 shadow-2xl">
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2 text-white font-bold text-xl shrink-0" aria-label="Home — The Ceylon Chamber of Spices">
                     <Leaf className="w-6 h-6 text-green-400" />
@@ -122,7 +122,7 @@ export const Navbar = () => {
                 </Link>
 
                 {/* Desktop Links */}
-                <div className="hidden lg:flex items-center gap-6 text-white/90 text-sm font-medium">
+                <div className="hidden xl:flex items-center gap-6 xl:gap-8 text-white/90 text-sm font-medium">
                     {navGroups.map(group => <Dropdown key={group.name} group={group} isActiveGroup={isGroupActive(group.links)} isActivePath={isActive} />)}
                     {singleLinks.map((link) => (
                         <Link
@@ -136,18 +136,18 @@ export const Navbar = () => {
                 </div>
 
                 {/* CTA Buttons */}
-                <div className="hidden lg:flex items-center gap-4 shrink-0">
-                    <Link to="/member-login" className="text-white/70 hover:text-white text-sm font-bold transition-colors">
+                <div className="hidden xl:flex items-center gap-5 xl:gap-6 shrink-0">
+                    <Link to="/member-login" className="text-white/80 hover:text-green-400 text-sm font-semibold transition-all">
                         Member Login
                     </Link>
-                    <Link to="/membership" className="bg-green-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition-colors inline-block">
+                    <Link to="/membership" className="bg-green-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-green-700 hover:shadow-lg hover:shadow-green-950/20 active:scale-95 transition-all duration-200 inline-block">
                         Become a Member
                     </Link>
                 </div>
 
                 {/* Mobile Menu Toggle */}
                 <button
-                    className="lg:hidden text-white p-2"
+                    className="xl:hidden text-white p-2 hover:bg-white/10 rounded-full transition-colors"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label={isOpen ? 'Close menu' : 'Open menu'}
                     aria-expanded={isOpen}
@@ -163,7 +163,7 @@ export const Navbar = () => {
                         initial={{ opacity: 0, y: -20, height: 0 }}
                         animate={{ opacity: 1, y: 0, height: 'auto' }}
                         exit={{ opacity: 0, y: -20, height: 0 }}
-                        className="absolute top-24 left-4 right-4 bg-black/95 backdrop-blur-xl rounded-3xl overflow-hidden flex flex-col text-white lg:hidden border border-white/10 max-h-[75vh]"
+                        className="absolute top-24 left-4 right-4 bg-black/95 backdrop-blur-xl rounded-3xl overflow-hidden flex flex-col text-white xl:hidden border border-white/10 max-h-[75vh]"
                         role="menu"
                     >
                         <div className="p-6 overflow-y-auto flex flex-col gap-6">

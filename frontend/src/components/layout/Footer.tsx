@@ -115,7 +115,7 @@ export const Footer = () => (
 
             <div className="border-t border-gray-100 pt-8 text-center text-xs text-gray-400 space-y-1">
                 <p>© 2026 The Ceylon Chamber of Spices. All Rights Reserved.</p>
-                <p>Designed & Developed by <a href="https://www.risolveit.com" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 font-medium transition-colors">RisolveIT</a></p>
+                <p>Designed & Developed by <a href="https://www.risolveit.dev/" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 font-medium transition-colors">RisolveIT</a></p>
             </div>
         </div>
         <div className="mt-12 text-center opacity-[0.03] pointer-events-none">
