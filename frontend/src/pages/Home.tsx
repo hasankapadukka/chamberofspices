@@ -96,7 +96,6 @@ export const Home = () => {
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
                     <div>
                         <p className="text-green-700 font-medium mb-2">Who We Are</p>
-                        <h2 className="text-4xl md:text-5xl font-medium tracking-tight mb-6"></h2>
                         <p className="text-gray-600 leading-relaxed mb-4">
                             The Ceylon Chamber of Spices is an independent, industry-led institution dedicated to strengthening, modernizing, and globalizing Sri Lanka's spice ecosystem.
                         </p>
