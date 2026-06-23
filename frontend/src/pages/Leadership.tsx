@@ -30,9 +30,9 @@ export const Leadership = () => {
         }).catch(() => { });
     }, []);
 
-    // Static leadership — these are the known leadership (shown first)
+    // Static leadership — these are the known leadership (shown first)  { name: 'Mr. Anushka Vidanapathirana', title: 'Chairman' },
     const staticLeaders = [
-        { name: 'Mr. Anushka Vidanapathirana', title: 'Chairman' },
+       
         { name: 'Mrs. Lakshmi Jayasinghe', title: 'Vice Chairperson' },
         { name: 'Mr. Hasanka Padukka', title: 'Executive Director' },
         { name: 'Mr. Ravees Dananjaya', title: 'Secretary General' },
