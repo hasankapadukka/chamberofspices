@@ -182,7 +182,7 @@ if (resourcesCount.count === 0) {
 const leadershipCount = db.prepare('SELECT COUNT(*) as count FROM leadership').get();
 if (leadershipCount.count === 0) {
   const leaders = [
-    { name: 'Mr. Anushka Vidanapathirana', title: 'Chairman', role: 'Executive Committee', bio: 'Leads the strategic vision of the Chamber with over 20 years of experience in the spice industry.', display_order: 1 },
+    { name: '', title: 'Chairman', role: 'Executive Committee', bio: 'Leads the strategic vision of the Chamber with over 20 years of experience in the spice industry.', display_order: 1 },
     { name: 'Ms. Dilini Perera', title: 'Vice Chairperson', role: 'Executive Committee', bio: 'Oversees sustainability programs and international trade partnerships.', display_order: 2 },
     { name: 'Mr. Ruwan de Silva', title: 'Secretary General', role: 'Executive Committee', bio: 'Manages daily operations and coordinates between all stakeholder communities.', display_order: 3 },
     { name: 'Dr. Kasun Fernando', title: 'Head of Research', role: 'Advisory Council', bio: 'Leads the research and innovation programs across the spice sector.', display_order: 4 }

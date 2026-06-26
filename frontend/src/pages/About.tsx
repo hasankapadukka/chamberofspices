@@ -9,7 +9,7 @@ export const About = () => {
         <>
             <SEO
                 title="About Us | The Ceylon Chamber of Spices"
-                description="Learn about The Ceylon Chamber of Spices — the national apex body unifying Sri Lanka's spice sector through collaboration and strategic foresight."
+                description="Learn about The Ceylon Chamber of Spices — an independent association unifying Sri Lanka's spice sector through collaboration and strategic foresight."
             />
 
             <Hero

@@ -39,7 +39,7 @@ export const Leadership = () => {
     ];
 
     const governanceStructure = [
-        { q: "Governing Board", icon: Shield, a: "The supreme decision-making body of the Chamber, composed of industry veterans, elected officials, and key stakeholders representing the apex interests of Ceylon Spices." },
+        { q: "Governing Board", icon: Shield, a: "The supreme decision-making body of the Chamber, composed of industry veterans, elected officials, and key stakeholders representing the collective interests of Ceylon Spices." },
         { q: "Advisory Council", icon: ScrollText, a: "A consortium of technical experts, researchers, and policy advisors guiding the Board on strategic direction, sustainability frameworks, and global market positioning." },
         { q: "Executive Secretariat", icon: Users, a: "The operational engine of the Chamber located in Colombo, Sri Lanka, responsible for daily administration, member services, and program implementation." },
         { q: "Thematic Committees", icon: Network, a: "Specialized working groups focusing on targeted areas: \n• Market & Trade \n• Standards & Certification \n• Sustainability & Regeneration \n• Community Development" }
