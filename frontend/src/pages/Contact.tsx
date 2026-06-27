@@ -61,7 +61,7 @@ export const Contact = () => {
                     <div>
                         <h2 className="text-4xl font-medium tracking-tight mb-8">Contact Information</h2>
                         <p className="text-gray-500 mb-12">
-                            The Ceylon Chamber of Spices is the national apex body dedicated to the industry. Our secretariat is available during standard business hours.
+                            The Ceylon Chamber of Spices is dedicated to the industry. Our secretariat is available during standard business hours.
                         </p>
                         <div className="space-y-8">
                             <div className="flex items-start gap-4">

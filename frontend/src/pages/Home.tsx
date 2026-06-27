@@ -76,7 +76,7 @@ export const Home = () => {
     return (
         <>
             <SEO
-                title="Ceylon Chamber of Spices | Official Spice Industry Apex Body of Sri Lanka"
+                title="Ceylon Chamber of Spices "
                 description="The Ceylon Chamber of Spices unites farmers, exporters, and policymakers to position Sri Lanka as a global leader in sustainable, premium spice production."
                 keywords="Ceylon Cinnamon, Sri Lanka spices, spice exports Sri Lanka, sustainable spices, regenerative agriculture Sri Lanka"
             />
