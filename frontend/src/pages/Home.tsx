@@ -72,7 +72,7 @@ export const Home = () => {
             }
         }).catch(() => { });
     }, []);
-
+ 
     return (
         <>
             <SEO
